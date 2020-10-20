@@ -41,3 +41,15 @@ brew install yarn
 
 Easy mac install via [Postgres.app](https://postgresapp.com/downloads.html).
 Be sure to [setup the cli](https://postgresapp.com/documentation/cli-tools.html) in your path.
+
+### Setup Rails
+
+```bash
+bin/setup
+```
+
+## Running the application
+
+```bash
+bin/rails s -p 3000
+```
