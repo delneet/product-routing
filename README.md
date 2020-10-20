@@ -53,3 +53,9 @@ bin/setup
 ```bash
 bin/rails s -p 3000
 ```
+
+## Running tests
+
+```bash
+bundle exec rspec
+```
