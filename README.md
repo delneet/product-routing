@@ -57,5 +57,6 @@ bin/rails s -p 3000
 ## Running tests
 
 ```bash
+bin/rails db:migrate RAILS_ENV=test
 bundle exec rspec
 ```
