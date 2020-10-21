@@ -14,3 +14,10 @@ require("@rails/activestorage").start()
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import "select2"
+import "select2/dist/css/select2.css"
+
+$(document).on('turbolinks:load', function () {
+  $("[data-role='select2']").select2({ tags: true })
+})
