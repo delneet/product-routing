@@ -1,18 +1,19 @@
 class CriteriaDefinition < ApplicationRecord
+  include RouteDefinitionOutput
+
   validates :destination, presence: true
   validates :max_product_price, numericality: true, allow_nil: true
 
-  def to_s
-    references = output_array_string(product_references)
-    categories = output_array_string(product_categories)
-    price = max_product_price&.round(2) || "_"
+  scope :with_reference, ->(reference) { where("product_references @> ?", "{#{reference}}") }
+  scope :with_category, ->(category) { where("product_categories @> ?", "{#{category}}") }
+  scope :with_max_price, ->(price) { where("max_product_price <= ?", price) }
 
-    "[ %s, %s, %s ] -> %s" % [references, categories, price, destination]
-  end
+  def route_definitions
+    products = (product_references.presence || [nil])
+    categories = (product_categories.presence || [nil])
+    max_price = [max_product_price]
 
-  private
-
-  def output_array_string(attribute)
-    attribute.present? ? "[#{attribute.join(", ")}]" : "_"
+    permutations = products.product(categories, max_price)
+    permutations.map { |attributes| RouteDefinition.new(*attributes, destination) }
   end
 end

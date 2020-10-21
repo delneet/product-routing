@@ -18,35 +18,39 @@ RSpec.describe CriteriaDefinition, type: :model do
     it_behaves_like "an array", :product_categories
   end
 
-  describe "#to_s" do
-    it "outputs the criteria definition in a predefined format" do
-      definition =
-        described_class.new(
-          product_references: %W[REF_1 REF_2],
-          product_categories: %W[CAT_1 CAT_2],
-          max_product_price: 100.00,
-          destination: "DEST_1"
-        )
+  it_behaves_like "a definition output format" do
+    let(:definition_with_attributes) {
+      described_class.new(
+        product_references: %W[REF_1 REF_2],
+        product_categories: %W[CAT_1 CAT_2],
+        max_product_price: 100.00,
+        destination: "DEST_1"
+      )
+    }
 
-      expected = "[ [REF_1, REF_2], [CAT_1, CAT_2], 100.0 ] -> DEST_1"
+    let(:definition_without_attributes) {
+      described_class.new(
+        product_references: nil,
+        product_categories: nil,
+        max_product_price: nil,
+        destination: "DEST_1"
+      )
+    }
+  end
 
-      expect(definition.to_s).to eql expected
-    end
+  describe "#route_definitions" do
+    subject(:definition) {
+      described_class.new(
+        product_references: %W[REF_1 REF_2],
+        product_categories: %W[CAT_1 CAT_2],
+        max_product_price: 100.00,
+        destination: "DEST_1"
+      )
+    }
 
-    context "when attributes are empty" do
-      it "outputs the criteria definition in a predefined format" do
-        definition =
-          described_class.new(
-            product_references: [],
-            product_categories: [],
-            max_product_price: nil,
-            destination: "DEST_1"
-          )
-
-        expected = "[ _, _, _ ] -> DEST_1"
-
-        expect(definition.to_s).to eql expected
-      end
+    it "returns route definitions for the permutations of criteria" do
+      expect(RouteDefinition).to receive(:new).exactly(4).times
+      expect(definition.route_definitions.size).to eql 4
     end
   end
 end
