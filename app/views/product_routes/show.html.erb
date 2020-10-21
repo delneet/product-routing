@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <% if @product_route.destination.blank? %>
-      <p>No routes found</p>
+      <p class="p-2">No routes found</p>
     <% else %>
       <ul class="list-group mt-5 mb-5">
         <li class="list-group-item"><%= @product_route.product_reference %> -> <%= @product_route.destination %></li>
