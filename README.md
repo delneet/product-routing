@@ -54,6 +54,10 @@ bin/setup
 bin/rails s -p 3000
 ```
 
+* Add some products
+* Add some criteria definitions
+* Find a destination by entering a product reference
+
 ## Running tests
 
 ```bash
