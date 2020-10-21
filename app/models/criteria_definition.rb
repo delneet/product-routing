@@ -6,7 +6,7 @@ class CriteriaDefinition < ApplicationRecord
 
   scope :with_reference, ->(reference) { where("product_references @> ?", "{#{reference}}") }
   scope :with_category, ->(category) { where("product_categories @> ?", "{#{category}}") }
-  scope :with_max_price, ->(price) { where("max_product_price <= ?", price) }
+  scope :with_max_price, ->(price) { where("COALESCE(max_product_price, 0) <= ?", price) if price }
 
   def route_definitions
     products = (product_references.presence || [nil])

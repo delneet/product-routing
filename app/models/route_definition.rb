@@ -11,9 +11,12 @@ class RouteDefinition
   end
 
   def matches_product?(product)
-    product.reference.in?(product_references) ||
-      product.category.in?(product_categories) ||
-      product.price.to_d <= max_product_price.to_d
+    match =
+      product.reference.in?(product_references) ||
+      product.category.in?(product_categories)
+    match &= product.price.to_d <= max_product_price if max_product_price
+
+    match
   end
 
   def weight

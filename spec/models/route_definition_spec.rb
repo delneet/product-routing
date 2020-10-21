@@ -41,13 +41,13 @@ RSpec.describe RouteDefinition do
       end
     end
 
-    context "when it includes the product price" do
+    context "when it includes just the product price" do
       subject(:route_definition) { described_class.new(nil, nil, 100, "DEST_1") }
 
-      it "returns true" do
+      it "returns false" do
         actual = route_definition.matches_product?(product)
 
-        expect(actual).to eql true
+        expect(actual).to eql false
       end
     end
 
