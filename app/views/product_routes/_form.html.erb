@@ -1,10 +1,10 @@
 <%= form_with(scope: :product_route, local: true) do |form| %>
-  <div>
+  <div class="form-group">
     <%= form.label :reference %>
-    <%= form.text_field :reference %>
+    <%= form.text_field :reference, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit "Find destination" %>
+    <%= form.submit "Find destination", class: "btn btn-primary" %>
   </div>
 <% end %>

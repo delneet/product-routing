@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col">
     <% if @product_route.destination.blank? %>
-      <div>No routes found</div>
+      <p>No routes found</p>
     <% else %>
-      <div><%= @product_route.product_reference %> -> <%= @product_route.destination %></div>
+      <ul class="list-group mt-5 mb-5">
+        <li class="list-group-item"><%= @product_route.product_reference %> -> <%= @product_route.destination %></li>
+      </ul>
 
-      <% @product_route.route_definitions.each do |definition| %>
-        <div>
-          <%= definition.to_s %>
-        </div>
-      <% end %>
+      <ul class="list-group mb-1">
+        <% @product_route.route_definitions.each do |definition| %>
+          <li class="list-group-item"><%= definition.to_s %></li>
+        <% end %>
+      </ul>
     <% end %>
 
     <%= link_to 'Back', product_routes_path %>
