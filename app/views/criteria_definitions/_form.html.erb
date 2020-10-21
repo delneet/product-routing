@@ -1,0 +1,37 @@
+<%= form_with(model: criteria_definition, local: true) do |form| %>
+  <% if criteria_definition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(criteria_definition.errors.count, "error") %> prohibited this criteria_definition from being saved:</h2>
+
+      <ul>
+        <% criteria_definition.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :product_references %>
+    <%= form.select :product_references, options_for_select(criteria_definition.product_references || [], criteria_definition.product_references.presence), {}, {multiple: true, data: {role: 'select2'}, class: 'form-control'} %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :product_categories %>
+    <%= form.select :product_categories, options_for_select(criteria_definition.product_categories || [], criteria_definition.product_categories.presence), {}, {multiple: true, data: {role: 'select2'}, class: 'form-control'} %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :max_product_price %>
+    <%= form.text_field :max_product_price, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :destination %>
+    <%= form.select :destination, options_for_select(criteria_definition.destination || [], criteria_definition.destination), {}, {data: {role: 'select2'}, class: 'form-control'} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

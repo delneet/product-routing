@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <%= @criteria_definition.to_s %>
+    </p>
+
+    <%= link_to 'Edit', edit_criteria_definition_path(@criteria_definition) %> |
+    <%= link_to 'Back', criteria_definitions_path %>
+  </div>
+</div>

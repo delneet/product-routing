@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Criteria Definitions</h1>
+
+    <table class="table table-sm table-hover">
+      <tbody>
+        <% @criteria_definitions.each do |criteria_definition| %>
+          <tr>
+            <td><%= criteria_definition.to_s %></td>
+            <td><%= link_to 'Edit', edit_criteria_definition_path(criteria_definition) %></td>
+            <td><%= link_to 'Destroy', criteria_definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Criteria Definition', new_criteria_definition_path %>
+  </div>
+</div>

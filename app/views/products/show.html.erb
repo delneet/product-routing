@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col">
+    <p id="notice"><%= notice %></p>
+
+    <ul class="list-group mt-1 mb-1">
+      <li class="list-group-item">[<%= @product.reference %>, <%= @product.name %>, <%= @product.category %>, <%= @product.price %>]</li>
+    </ul>
+
+    <%= link_to 'Edit', edit_product_path(@product) %> |
+    <%= link_to 'Back', products_path %>
+
+  </div>
+</div>
