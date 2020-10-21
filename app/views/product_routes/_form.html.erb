@@ -1,0 +1,10 @@
+<%= form_with(scope: :product_route, local: true) do |form| %>
+  <div>
+    <%= form.label :reference %>
+    <%= form.text_field :reference %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Find destination" %>
+  </div>
+<% end %>

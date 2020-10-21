@@ -1,4 +1,6 @@
 class ProductRoute
+  attr_reader :product_reference
+
   def initialize(product_reference)
     @product_reference = product_reference
   end
@@ -10,6 +12,8 @@ class ProductRoute
   end
 
   def route_definitions
+    return [] unless criteria_definitions
+
     criteria_definitions.flat_map { |criteria_definition|
       criteria_definition.route_definitions.select { |route_definition|
         route_definition.matches_product?(product)
@@ -19,8 +23,6 @@ class ProductRoute
 
   private
 
-  attr_reader :product_reference
-
   delegate :category, :price, to: :product
 
   def product
@@ -28,6 +30,8 @@ class ProductRoute
   end
 
   def criteria_definitions
+    return unless product
+
     @criteria_definitions ||=
       CriteriaDefinition
         .with_reference(product_reference)

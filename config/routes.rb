@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :product_routes, only: %i[index show create]
+  resources :criteria_definitions
+  resources :products
+
+  root to: "product_routes#index"
 end
