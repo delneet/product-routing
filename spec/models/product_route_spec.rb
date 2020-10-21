@@ -2,7 +2,29 @@ require "rails_helper"
 
 RSpec.describe ProductRoute, type: :model do
   describe "#destination" do
-    it "evaluates criteria definitions and returns a destination" do
+    subject(:product_route) { described_class.new("REF_1") }
+
+    before { allow(product_route).to receive(:route_definitions) { route_definitions } }
+
+    let(:route_definitions) {
+      [
+        instance_double("RouteDefinition", destination: "DEST_1", weight: 1),
+        instance_double("RouteDefinition", destination: "DEST_2", weight: 2),
+        instance_double("RouteDefinition", destination: "DEST_3", weight: 3),
+        instance_double("RouteDefinition", destination: "DEST_4", weight: 3)
+      ]
+    }
+
+    it "returns the destination of the route definition with the highest weight" do
+      expect(product_route.destination).to eql("DEST_3").or eql("DEST_4")
+    end
+
+    context "without matching criteria definitions" do
+      before { allow(product_route).to receive(:route_definitions) }
+
+      it "returns nil" do
+        expect(product_route.destination).to be_nil
+      end
     end
   end
 
@@ -30,8 +52,7 @@ RSpec.describe ProductRoute, type: :model do
         expected = [
           "[ [REF_1], [CAT_1], 100.0 ] -> DEST_1",
           "[ [REF_1], [CAT_3], 100.0 ] -> DEST_1",
-          "[ [REF_8], [CAT_1], 100.0 ] -> DEST_1",
-          "[ [REF_8], [CAT_3], 100.0 ] -> DEST_1"
+          "[ [REF_8], [CAT_1], 100.0 ] -> DEST_1"
         ]
 
         actual = product_route.route_definitions.map(&:to_s)

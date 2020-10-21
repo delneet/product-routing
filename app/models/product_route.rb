@@ -4,7 +4,9 @@ class ProductRoute
   end
 
   def destination
-    # TODO: evaluate routes
+    return if highest_weight_destinations.blank?
+
+    highest_weight_destinations.sample.destination
   end
 
   def route_definitions
@@ -31,5 +33,17 @@ class ProductRoute
         .with_reference(product_reference)
         .or(CriteriaDefinition.with_category(category))
         .merge(CriteriaDefinition.with_max_price(price))
+  end
+
+  def highest_weight_destinations
+    return [] if weighted_destinations.blank?
+
+    weighted_destinations.max_by { |k, v| k }[1]
+  end
+
+  def weighted_destinations
+    return {} if route_definitions.blank?
+
+    route_definitions.group_by(&:weight)
   end
 end
